@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package provisioning;
+
+message CreateCustomerRequest {
+    string CustomerId = 1;
+}
+
+message CreateCustomerResponse {
+    int64 objectId = 1;
+}
+
+service Provisioning {
+    rpc CreateCustomer(CreateCustomerRequest) returns (CreateCustomerResponse);
+}
