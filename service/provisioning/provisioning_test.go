@@ -1,6 +1,8 @@
 package provisioning
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestServerLaunchedSuccessfully(t *testing.T) {
 

@@ -8,6 +8,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -156,6 +158,14 @@ func (c *provisioningClient) CreateCustomer(ctx context.Context, in *CreateCusto
 // ProvisioningServer is the server API for Provisioning service.
 type ProvisioningServer interface {
 	CreateCustomer(context.Context, *CreateCustomerRequest) (*CreateCustomerResponse, error)
+}
+
+// UnimplementedProvisioningServer can be embedded to have forward compatible implementations.
+type UnimplementedProvisioningServer struct {
+}
+
+func (*UnimplementedProvisioningServer) CreateCustomer(ctx context.Context, req *CreateCustomerRequest) (*CreateCustomerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCustomer not implemented")
 }
 
 func RegisterProvisioningServer(s *grpc.Server, srv ProvisioningServer) {

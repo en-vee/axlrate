@@ -35,7 +35,8 @@ type AxlRateConf struct {
 
 func main() {
 
-	alog.Info("Parsing Command-Line Arguments")
+	alog.Info("Starting axlrate server")
+	alog.Debug("Parsing Command-Line Arguments")
 	// Parse Command-line arguments
 	flag.Parse()
 
@@ -62,9 +63,7 @@ func main() {
 	serverRole := sysConf.AxlRate.Server.Role
 
 	// Based on the role in the config file, launch the appropriate server
-
 	var srv server.Server
-
 	switch serverRole {
 	case PROVISIONING:
 		srv = &provisioning.Server{NetworkComponent: server.NetworkComponent{NetworkType: server.TcpAddressType, Address: sysConf.AxlRate.Server.Address, PortNumber: sysConf.AxlRate.Server.Port}}
@@ -79,10 +78,13 @@ func main() {
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
+	// Multiplex on errors from error channels of other servers or from the outside world (TERM/INT signals)
+	// In case of signals, also close the context
 	for {
 		select {
 		case sig := <-sigChan:
 			alog.Info("Received Signal %v", sig)
+			break
 		case err := <-errChan:
 			alog.Error("Provisioning Server Error : %v", err)
 		case <-time.After(time.Second):
