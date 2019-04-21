@@ -142,7 +142,7 @@ func (s *NetworkComponent) StopGrpcServer() error {
 	}
 
 	if s.grpcServer != nil {
-		s.grpcServer.Stop()
+		s.grpcServer.GracefulStop()
 	} else {
 		err = &GrpcServerNotStartedError{}
 	}
