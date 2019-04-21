@@ -20,7 +20,7 @@ var (
 )
 
 const (
-	PROVISIONING = "Provisioning"
+	PROVISIONING = "PROVISIONING"
 )
 
 type AxlRateConf struct {
@@ -61,10 +61,6 @@ func main() {
 	//alog.Info("sysConf=%v", sysConf)
 	serverRole := sysConf.AxlRate.Server.Role
 
-	// Setup Signal Handling
-	sigChan := make(chan os.Signal, 1)
-	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
-
 	// Based on the role in the config file, launch the appropriate server
 
 	var srv server.Server
@@ -78,6 +74,10 @@ func main() {
 	}
 
 	errChan := server.Launch(srv)
+
+	// Setup Signal Handling
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
 	for {
 		select {
