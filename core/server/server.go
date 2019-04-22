@@ -52,11 +52,13 @@ func Launch(srv Server) <-chan error {
 		// Validate the Network Component address
 		if err := srv.ValidateAddress(); err != nil {
 			c <- err
+			return
 		}
 
 		// Create listener
 		if err := srv.CreateNetworkListener(); err != nil {
 			c <- err
+			return
 		}
 
 		// Create a GRPC server
@@ -67,6 +69,7 @@ func Launch(srv Server) <-chan error {
 
 		if err := srv.StartGrpcServer(grpcServer); err != nil {
 			c <- err
+			return
 		}
 	}()
 	return c

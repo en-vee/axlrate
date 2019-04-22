@@ -80,11 +80,12 @@ func main() {
 
 	// Multiplex on errors from error channels of other servers or from the outside world (TERM/INT signals)
 	// In case of signals, also close the context
+selectloop:
 	for {
 		select {
 		case sig := <-sigChan:
 			alog.Info("Received Signal %v", sig)
-			break
+			break selectloop
 		case err := <-errChan:
 			alog.Error("Provisioning Server Error : %v", err)
 		case <-time.After(5 * time.Second):

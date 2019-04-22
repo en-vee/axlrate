@@ -28,5 +28,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	alog.Info("Response = %v", resp)
+	alog.Info("Response = %v", resp.ObjectId)
 }
