@@ -16,7 +16,7 @@ type Server struct {
 func (s *Server) CreateCustomer(ctx context.Context, req *CreateCustomerRequest) (*CreateCustomerResponse, error) {
 	// Extract CustomerId
 	alog.Debug("CreateCustomerRequest = %v", req)
-	return nil, nil
+	return &CreateCustomerResponse{ObjectId: 1}, nil
 }
 
 func (s *Server) RegisterServer(g *grpc.Server) {

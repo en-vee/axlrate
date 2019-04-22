@@ -87,7 +87,7 @@ func main() {
 			break
 		case err := <-errChan:
 			alog.Error("Provisioning Server Error : %v", err)
-		case <-time.After(time.Second):
+		case <-time.After(5 * time.Second):
 			alog.Trace("No error reported by provisioning server in last 1 second")
 		}
 	}
