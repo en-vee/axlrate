@@ -1,10 +1,17 @@
 # ================================
 # Build Stage
 # ================================
-FROM golang:latest AS builder
+#FROM golang:latest AS builder
+FROM axlrate-base:latest AS builder
 
+
+RUN go get -u -v github.com/en-vee/aconf/...
+RUN go get -u -v github.com/en-vee/alog/...
+RUN mkdir -p /go/src/github.com/en-vee/axlrate
 # Get source code from local or github (?)
-RUN go get -u -v github.com/en-vee/axlrate/...
+COPY . /go/src/github.com/en-vee/axlrate
+RUN ls -ltR /go/src/github.com/en-vee/axlrate
+#RUN go get -u -v github.com/en-vee/axlrate/...
 
 # Create target directories which can then be COPY'ed to the final image
 RUN mkdir -p /opt/app/axlrate/bin
