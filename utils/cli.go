@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	alog.SetLogLevel(alog.TRACE)
 	conn, err := grpc.Dial("localhost:10080", grpc.WithInsecure())
 	if err != nil {
 		alog.Critical("Error dialing GRPC server : %v", err)

@@ -50,10 +50,10 @@ func Launch(srv Server) <-chan error {
 
 	go func() {
 		// Validate the Network Component address
-		if err := srv.ValidateAddress(); err != nil {
-			c <- err
-			return
-		}
+		//if err := srv.ValidateAddress(); err != nil {
+		//	c <- err
+		//	return
+		//}
 
 		// Create listener
 		if err := srv.CreateNetworkListener(); err != nil {
